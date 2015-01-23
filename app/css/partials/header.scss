@@ -1,0 +1,24 @@
+header{
+
+	@include grid(1,1);
+	height: 100%;
+
+	.col__full{
+		@include grid(10,12);
+		padding-left: 50px;
+		padding-top: 50px;
+		height: 100%;
+
+		    @media only screen and (max-width:$small){
+		        float: none;
+		        width: 100%;
+		        padding-left: 0;
+		        padding-top: 50px;
+		        padding-bottom: 0;
+		        text-align: center;
+		    }
+
+	}
+
+}
+

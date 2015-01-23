@@ -1,0 +1,23 @@
+{
+  "name": "React",
+  "version": "0.1.0",
+  "author": "Jack Boyce",
+  "browserify": {
+    "transform": [
+        "reactify", "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+      "react": "global:React"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "react": "^0.12.2",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-browserify": "^3.1.0",
+    "browserify-shim": "^3.8.0"
+  }
+}

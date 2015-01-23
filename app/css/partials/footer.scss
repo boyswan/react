@@ -1,0 +1,23 @@
+footer{
+
+	@include grid(1,1);
+	padding-top: 10px;
+	padding-bottom: 25px;
+	height: 100%;
+	background: $three;
+	text-align: center;
+
+ 	
+	.col__full{
+	height: 100%;
+
+	    @media only screen and (max-width:$small){
+	        float: none;
+	        width: 100%;
+	       	padding-left: 0;
+	        padding-bottom: 0;
+
+	    }
+	}
+
+}

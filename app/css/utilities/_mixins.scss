@@ -1,0 +1,27 @@
+@mixin grid($child, $parent, $isLast: false, $grid-margin: 2%){
+  
+  $w: 100% - ($grid-margin * ($parent - 1));
+  $m: ($w / $parent * $child) + ($grid-margin * ($child - 1));
+  float: left;
+  width: $m;
+  margin-right: $grid-margin;   
+
+    @if $isLast == true {
+        margin-right: 0!important;
+        margin-bottom: 0!important;
+     }
+  
+}
+
+@mixin push($child, $parent, $grid-margin: 2%){
+  
+  $w: 100% - ($grid-margin * ($parent - 1));
+  $m: ($w / $parent * $child) + ($grid-margin * ($child - 1));
+  float: left;
+  margin-left: $m + $grid-margin;
+  
+}
+
+@mixin transition ($amount) {
+  transition: all $amount ease-in-out;
+}

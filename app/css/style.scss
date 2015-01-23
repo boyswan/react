@@ -1,0 +1,27 @@
+
+// ***************************************************
+
+// =====UTILITIES=====================================
+
+@import "utilities/_variables.scss";
+@import "utilities/_mixins.scss";
+@import "utilities/base.scss";
+
+// =====OBJECTS======================================
+
+@import "objects/images.scss";
+@import "objects/text.scss";
+@import "objects/buttons.scss";
+@import "objects/forms.scss";
+
+// ======PARTIALS====================================
+
+
+@import "partials/content.scss";
+@import "partials/header.scss";
+@import "partials/footer.scss";
+
+// ***************************************************
+
+
+
