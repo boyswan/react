@@ -1,42 +1,40 @@
-var quiz = [
+module.exports = [
 
-	    {
-	      	"question" : "Pick red",
+    {
+      	"question" : "Pick red",
 
-	      	"answer" : [
-	      			"yellow",
-	      			"red",
-	      			"blue",
-	      			"green"
-	      	],
+      	"answer" : [
+      			"yellow",
+      			"red",
+      			"blue",
+      			"green"
+      	],
 
-	      	"correct" : "red"
-	    },
-	    {
-	      	"question" : "Pick cat",
+      	"correct" : 2
+    },
+    {
+      	"question" : "Pick cat",
 
-	      	"answer" : [
-	      			"dog",
-	      			"pig",
-	      			"cat",
-	      			"frog"
-	      	],
+      	"answer" : [
+      			"dog",
+      			"pig",
+      			"cat",
+      			"frog"
+      	],
 
-	      	"correct" : "cat"
-	    },
-	    {
-	      	"question" : "Pick egg",
+      	"correct" : 3
+    },
+    {
+      	"question" : "Pick egg",
 
-	      	"answer" : [
-	      			"fish",
-	      			"milk",
-	      			"pie",
-	      			"egg"
-	      	],
+      	"answer" : [
+      			"fish",
+      			"milk",
+      			"pie",
+      			"egg"
+      	],
 
-	      	"correct" : "egg"
-	    }
+      	"correct" : 4
+    }
 
-	]
-
-module.exports = quiz;
+]

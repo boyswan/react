@@ -1,6 +1,5 @@
-'use strict';
+'Use Strict'
 
-// var React 		= require('React');
 var QuestionContainer  = require('./quiz_container.jsx');
 
 
@@ -12,7 +11,6 @@ var QuizApp = React.createClass({
         <QuestionContainer />
       </div>
     )
-
   }
 
 })

@@ -1,18 +1,16 @@
 'Use Strict'
 
-var Quiz  = require('../models/data_list.js');
-var rand =  Math.floor((Math.random() * Quiz.length) + 0);
 
 var ButtonContainer = React.createClass({
 
-  // answerCorrect: function(){
-  //   console.log(this.props.children)
-  // },
+  handleClick: function(child){
+    this.props.onClick(child);
+  },
 
   render: function(){
-    var answerList  = this.props.answerList.map(function(input){
-      return <SingleButton onPass={this.answerCorrect} answerList={input}/>
-    }.bind(this))
+    var answerList = this.props.answerList.map(function(input){
+      return <SingleButton key={'button'+input} onClick={this.handleClick} singleAnswer={input}/>
+    }.bind(this));
    
     return <div> {answerList} </div>
   }
@@ -21,14 +19,14 @@ var ButtonContainer = React.createClass({
 
 var SingleButton = React.createClass({
 
-  success: function(){
-    this.props.answerList == this.props.correctAnswer ? console.log('true') : console.log('false')
-  },
+  handleClick: function() {
+    this.props.onClick(this);
+  }, 
 
   render: function(){
     return (
-      <button className='raga' onClick={this.success}> {this.props.answerList} </button>
-    ) 
+        <button className='raga' onClick={this.handleClick}>{this.props.singleAnswer}</button>
+    )
   }
 
 });

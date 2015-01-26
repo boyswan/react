@@ -2,7 +2,7 @@
 'use strict';
 
 // var React 		= require('React');
-var QuizContainer     = require('./components/quiz_container.jsx');
+var QuizContainer   = require('./components/quiz_container.jsx');
 
 React.render(React.createElement(QuizContainer, null), document.getElementById('app'));
 
@@ -23,19 +23,17 @@ module.exports = Timer
 },{}],3:[function(require,module,exports){
 'Use Strict'
 
-var Quiz  = require('../models/data_list.js');
-var rand =  Math.floor((Math.random() * Quiz.length) + 0);
 
 var ButtonContainer = React.createClass({displayName: "ButtonContainer",
 
-  // answerCorrect: function(){
-  //   console.log(this.props.children)
-  // },
+  handleClick: function(child){
+    this.props.onClick(child);
+  },
 
   render: function(){
-    var answerList  = this.props.answerList.map(function(input){
-      return React.createElement(SingleButton, {onPass: this.answerCorrect, answerList: input})
-    }.bind(this))
+    var answerList = this.props.answerList.map(function(input){
+      return React.createElement(SingleButton, {key: 'button'+input, onClick: this.handleClick, singleAnswer: input})
+    }.bind(this));
    
     return React.createElement("div", null, " ", answerList, " ")
   }
@@ -44,14 +42,14 @@ var ButtonContainer = React.createClass({displayName: "ButtonContainer",
 
 var SingleButton = React.createClass({displayName: "SingleButton",
 
-  success: function(){
-    this.props.answerList == this.props.correctAnswer ? console.log('true') : console.log('false')
-  },
+  handleClick: function() {
+    this.props.onClick(this);
+  }, 
 
   render: function(){
     return (
-      React.createElement("button", {className: "raga", onClick: this.success}, " ", this.props.answerList, " ")
-    ) 
+        React.createElement("button", {className: "raga", onClick: this.handleClick}, this.props.singleAnswer)
+    )
   }
 
 });
@@ -59,32 +57,66 @@ var SingleButton = React.createClass({displayName: "SingleButton",
 
 
 module.exports = ButtonContainer;
-},{"../models/data_list.js":7}],4:[function(require,module,exports){
-'use strict';
+},{}],4:[function(require,module,exports){
+'Use Strict';
 
-var Data  = require('../models/data_list.js');
+var Data              = require('../models/data_list.js');
 
-var ButtonContainer  = require('../components/quiz_buttons.jsx');
+var ButtonContainer   = require('../components/quiz_buttons.jsx');
 var QuestionContainer = require('../components/quiz_question.jsx');
-var Score = require('../components/quiz_score.jsx');
-var Timer = require('../components/quiz_Timer.jsx');
+var Score             = require('../components/quiz_score.jsx');
+var Timer             = require('../components/quiz_Timer.jsx');
 
-
-
-var rand =  Math.floor((Math.random() * Data.length) + 0);
 
 
 var QuizContainer = React.createClass({displayName: "QuizContainer",
 
+  randomNumber: function(){
+    return Math.floor((Math.random() * Data.length) + 0);
+  },
+
   getInitialState: function(){
+    var rand = this.randomNumber();
     return {
       answerList: Data[rand].answer,
       answerQuestion: Data[rand].question,
       correctAnswer: Data[rand].correct,
       score: 0,
-      timer: 0
+      timer: 30
     }
   }, 
+
+  newQuestion : function(){
+    var rand = this.randomNumber();
+    return {
+      answerList: Data[rand].answer,
+      answerQuestion: Data[rand].question,
+      correctAnswer: Data[rand].correct,
+      timer: 30
+    }
+  },
+
+  timeDown: function(){
+    this.setState({timer: this.state.timer <= 0 ? this.state.timer = 0 : this.state.timer - 1})
+    if (this.state.timer <= 0){this.fail()}
+  },
+
+  componentDidMount: function(){
+    setInterval(this.timeDown, 1000);
+  },
+
+  success: function(){
+    this.setState({score: this.state.score + 1})
+    this.setState(this.newQuestion());
+  },
+
+  fail: function(){
+    this.setState(this.getInitialState());
+  },
+
+  handleClick: function(child){
+    child.props.singleAnswer == this.state.answerList[this.state.correctAnswer-1] ? this.success() : this.fail()
+  },
 
   render: function(){
     return(
@@ -92,12 +124,11 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
         React.createElement(Timer, {timer: this.state.timer}), 
         React.createElement(Score, {currentScore: this.state.score}), 
         React.createElement(QuestionContainer, {answerQuestion: this.state.answerQuestion}), 
-        React.createElement(ButtonContainer, {correctAnswer: this.state.correctAnswer, answerList: this.state.answerList})
+        React.createElement(ButtonContainer, {onClick: this.handleClick, answerList: this.state.answerList})
       )
     )
   }
 
-  
 })
 
 module.exports = QuizContainer;
@@ -130,46 +161,45 @@ var Score = React.createClass({displayName: "Score",
 
 module.exports = Score;
 },{}],7:[function(require,module,exports){
-var quiz = [
+module.exports = [
 
-	    {
-	      	"question" : "Pick red",
+    {
+      	"question" : "Pick red",
 
-	      	"answer" : [
-	      			"yellow",
-	      			"red",
-	      			"blue",
-	      			"green"
-	      	],
+      	"answer" : [
+      			"yellow",
+      			"red",
+      			"blue",
+      			"green"
+      	],
 
-	      	"correct" : "red"
-	    },
-	    {
-	      	"question" : "Pick cat",
+      	"correct" : 2
+    },
+    {
+      	"question" : "Pick cat",
 
-	      	"answer" : [
-	      			"dog",
-	      			"pig",
-	      			"cat",
-	      			"frog"
-	      	],
+      	"answer" : [
+      			"dog",
+      			"pig",
+      			"cat",
+      			"frog"
+      	],
 
-	      	"correct" : "cat"
-	    },
-	    {
-	      	"question" : "Pick egg",
+      	"correct" : 3
+    },
+    {
+      	"question" : "Pick egg",
 
-	      	"answer" : [
-	      			"fish",
-	      			"milk",
-	      			"pie",
-	      			"egg"
-	      	],
+      	"answer" : [
+      			"fish",
+      			"milk",
+      			"pie",
+      			"egg"
+      	],
 
-	      	"correct" : "egg"
-	    }
+      	"correct" : 4
+    }
 
-	]
+]
 
-module.exports = quiz;
 },{}]},{},[1]);

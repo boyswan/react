@@ -13,7 +13,8 @@ html{
 
 body{
     background-color: $one;
-    
+    height: 100%;
+    width: 100%;
 }
 
 p{
@@ -22,4 +23,14 @@ p{
 
 .last{
   margin-right: 0!important;
+}
+
+// TEMP
+
+.raga{
+	padding-top: 50px;
+	padding-bottom: 50px;
+	width: 50%;
+	height: 100%;
+	font-size: 2em;
 }
