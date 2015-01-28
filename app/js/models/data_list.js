@@ -1,40 +1,20 @@
+var exportAll = require('../models/number_gen.js');
+
+exportAll.init('medium', function(question, answer, choices){
+  currentQuestion = question
+  currentAnswer = answer
+  currentChoices = choices
+})
+
+
 module.exports = [
 
     {
-      	"question" : "Pick red",
+        "question" : currentQuestion,
 
-      	"answer" : [
-      			"yellow",
-      			"red",
-      			"blue",
-      			"green"
-      	],
+        "answer" : currentChoices,
 
-      	"correct" : 2
-    },
-    {
-      	"question" : "Pick cat",
-
-      	"answer" : [
-      			"dog",
-      			"pig",
-      			"cat",
-      			"frog"
-      	],
-
-      	"correct" : 3
-    },
-    {
-      	"question" : "Pick egg",
-
-      	"answer" : [
-      			"fish",
-      			"milk",
-      			"pie",
-      			"egg"
-      	],
-
-      	"correct" : 4
+        "correct" : answer
     }
 
 ]

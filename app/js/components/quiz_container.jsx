@@ -1,12 +1,10 @@
 'Use Strict';
 
 var Data              = require('../models/data_list.js');
-
 var ButtonContainer   = require('../components/quiz_buttons.jsx');
 var QuestionContainer = require('../components/quiz_question.jsx');
 var Score             = require('../components/quiz_score.jsx');
 var Timer             = require('../components/quiz_Timer.jsx');
-
 
 
 var QuizContainer = React.createClass({
@@ -64,7 +62,9 @@ var QuizContainer = React.createClass({
         <Timer timer={this.state.timer} />
         <Score currentScore={this.state.score} />
         <QuestionContainer answerQuestion={this.state.answerQuestion} />
-        <ButtonContainer onClick={this.handleClick} answerList={this.state.answerList} />
+        <div className='button-container'>
+          <ButtonContainer onClick={this.handleClick} answerList={this.state.answerList} />
+        </div>
       </div>
     )
   }

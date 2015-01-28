@@ -1,115 +1,27 @@
-.button__wrap{
-	display: block;
-	padding-left: 50px;
-	margin-bottom: 10px;
+.quiz-{
 
-	 	@media only screen and (max-width:$small){
-			padding-left: 0;
-			display: table;
-			margin: 0 auto;
-			margin-bottom: 40px;
-	 	}
+	&button{
+		outline: 0;
+		padding-top: 2.5%;
+		padding-bottom: 2.5%;
+		width: 100%;
+		height: 10%;
+		font-size: 2em;
+		border: none;
+		border-top: 3px solid $three;
+		background: $two;
+		color: white;
 
-	.button{
-		padding: 10px;
-		border: 3px solid black;
-		border-radius: 3px;
-		text-decoration: none;
-		color: black;
-		font-family: 'Helvetica';
-		font-weight: 800;
-		font-size: 1.5rem;
+		@include transition (0.2s);
 
-		 	@media only screen and (max-width:$small){
-		 		font-size: 1rem;
-		 	}
-
-			&.iphone{
-				padding-left: 50px;
-				background-size: 25px;
-				background-position: 7px 10px;
-				background-repeat: no-repeat;
-				background-image: url(../../../assets/images/apple_black.svg);
-
-	 		 		@media only screen and (max-width:$small){
-						background-position: 7px 5px;
-				 	}
+			&:active {
+				border-top-color: #ffffff;
+				background: #ffffff;
+				color: $two;
+				@include transition (0.2s)
 			}
+		}	
 
-			&.android{
-				padding-left: 50px;
-				background-size: 26px;
-				background-position: 7px 10px;
-				background-repeat: no-repeat;
-				background-image: url(../../../assets/images/android_black.svg);
-				margin-left: 25px;
-
-		 		 	@media only screen and (max-width:$medium){
-		 		 		display: table;
-		 		 		margin-top: 40px;
-						margin-left: 0;
-				 	}
-
-	 		 		@media only screen and (max-width:$small){
-						background-position: 7px 5px;
-		 		 		display: initial;
-						margin-left: 25px;
-				 	}
-
-			}
-
-		}
 
 }
-
-
-
-.social__wrap{
-	padding-top: 20px;
-	padding-bottom: 20px;
-	width: 250px;
-	margin: 0 auto;
-
-	.social{
-		display: inline-block;
-		width: 30px;
-		height: 30px;
-		background-size: cover;
-		background-position: center;
-		margin-left: 25px;
-	    @include transition(0.2s);
-
-		 	@media only screen and (max-width:$small){
-				margin-left: 25px;
-				width: 30px;
-				height: 30px;
-			}
-
-				&:hover{
-					opacity: 0.25;
-				    @include transition(0.2s);
-
-				}
-		
-					&.facebook{
-						background-image: url(../../../assets/images/social/facebook.svg);
-					}
-
-					&.twitter{
-						background-image: url(../../../assets/images/social/twitter.svg);
-					}
-
-					&.android{
-						background-image: url(../../../assets/images/android.svg);
-					}
-
-					&.apple{
-						background-image: url(../../../assets/images/apple.svg);
-						margin-left: 0;
-					}
-	}
-
-}
-
-		
 

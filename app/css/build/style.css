@@ -20,9 +20,20 @@ p {
 .last {
   margin-right: 0 !important; }
 
-.raga {
-  padding-top: 50px;
-  padding-bottom: 50px;
-  width: 50%;
-  height: 100%;
-  font-size: 2em; }
+.quiz-button {
+  outline: 0;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  width: 100%;
+  height: 10%;
+  font-size: 2em;
+  border: none;
+  border-top: 3px solid #5190c7;
+  background: #72b2e3;
+  color: white;
+  transition: all 0.2s ease-in-out; }
+  .quiz-button:active {
+    border-top-color: #ffffff;
+    background: #ffffff;
+    color: #72b2e3;
+    transition: all 0.2s ease-in-out; }

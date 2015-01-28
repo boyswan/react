@@ -1,6 +1,5 @@
 'Use Strict'
 
-
 var Score = React.createClass({
 
 	render: function(){

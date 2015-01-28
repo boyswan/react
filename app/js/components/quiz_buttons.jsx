@@ -1,6 +1,5 @@
 'Use Strict'
 
-
 var ButtonContainer = React.createClass({
 
   handleClick: function(child){
@@ -25,12 +24,10 @@ var SingleButton = React.createClass({
 
   render: function(){
     return (
-        <button className='raga' onClick={this.handleClick}>{this.props.singleAnswer}</button>
+        <button className='quiz-button' onClick={this.handleClick}>{this.props.singleAnswer}</button>
     )
   }
 
 });
-
-
 
 module.exports = ButtonContainer;
