@@ -1,66 +1,50 @@
-@font-face {
-    font-family: 'BLOKKNeue-Regular';
-    src: url('../fonts/BLOKKNeue-Regular.eot');
-    src: url('../fonts/BLOKKNeue-Regular.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/BLOKKNeue-Regular.svg#BLOKKNeue-Regular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
+.quiz-{
 
-.copy__header{
-  font-family: 'Helvetica';
-  font-weight: 800;
-  font-size: 2.5rem;
-}
+	&score{
+		position: fixed;
+		color: white;
+		z-index: 999;
+		font-size: 1.5em;
+		padding: 5px 5px 5px 10px;
+	}
 
+	&question{
+		color: white;
+		width: 50%;
+		float: left;
 
-.text__wrap{
-  padding: 50px;
-  margin-top: 30px;
+		background: $one;
+		font-size: 4em;
+		border-top: 10px solid #64C7E5;
+		vertical-align: middle;
+		padding: 50px 0 50px 0;
+		text-align: center;
+	}
 
-    @media only screen and (max-width:$small){
-        text-align: center;
-        margin-top: 0;
-        padding: 30px;
-
-    }
-    
-    .copy__intro{
-      font-family: 'Helvetica';
-      font-weight: 800;
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-
-        @media only screen and (max-width:$small){
-          font-size: 2.25rem;
-        }
-
-        @media only screen and (max-width:$medium){
-          font-size: 2rem;
-        }
-    }
-
-    .copy__main{
-      font-family: 'Helvetica';
-      font-weight: 400;
-      font-size: 1.5rem;
-
-        @media only screen and (max-width:$small){
-          margin-bottom: 15px;
-          font-size: 1rem;
-
-        }
-
-        @media only screen and (max-width:$medium){
-          font-size: 1.25rem;
-        }
-    }
+	&stats{
+		color: white;
+		width: 50%;
+		float: left;
+		background: $one;
+		font-size: 4em;
+		border-top: 10px solid $one;
+		vertical-align: middle;
+		padding: 50px 0 50px 0;
+		text-align: center;		
+	}
 
 }
 
-.copy__footer{
-  font-family: 'Helvetica';
-  color: white;
-  font-size: .5rem;
+
+.gloss{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-image: url(../images/gloss.svg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	pointer-events: none;
+	opacity: 0.1;
 }
+

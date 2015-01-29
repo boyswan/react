@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
+    "reactify": "*",
     "react": "^0.12.2",
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-sass": "*",

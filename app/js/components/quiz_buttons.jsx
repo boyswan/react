@@ -1,5 +1,7 @@
 'Use Strict'
 
+
+
 var ButtonContainer = React.createClass({
 
   handleClick: function(child){
@@ -7,10 +9,9 @@ var ButtonContainer = React.createClass({
   },
 
   render: function(){
-    var answerList = this.props.answerList.map(function(input){
-      return <SingleButton key={'button'+input} onClick={this.handleClick} singleAnswer={input}/>
+    var answerList = this.props.answerList.map(function(input, i){
+      return <SingleButton key={'button'+i} onClick={this.handleClick} singleAnswer={input}/>
     }.bind(this));
-   
     return <div> {answerList} </div>
   }
 

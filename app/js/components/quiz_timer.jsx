@@ -4,7 +4,7 @@ var Timer = React.createClass({
 
 	render: function(){
 		return(
-        	<div className='quiz-timer'>{this.props.timer}</div>
+        	<div className='quiz-timer'></div>
     	)
 	}	
 })

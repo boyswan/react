@@ -10,14 +10,14 @@
 // =====OBJECTS======================================
 
 // @import "objects/images.scss";
-// @import "objects/text.scss";
+@import "objects/text.scss";
 @import "objects/buttons.scss";
 @import "objects/timer.scss";
 
 // ======PARTIALS====================================
 
 
-// @import "partials/content.scss";
+@import "partials/section.scss";
 // @import "partials/header.scss";
 // @import "partials/footer.scss";
 

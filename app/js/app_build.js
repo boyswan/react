@@ -6,14 +6,33 @@ var QuizContainer   = require('./components/quiz_container.jsx');
 
 React.render(React.createElement(QuizContainer, null), document.getElementById('app'));
 
-},{"./components/quiz_container.jsx":4}],2:[function(require,module,exports){
+
+},{"./components/quiz_container.jsx":5}],2:[function(require,module,exports){
+'Use Strict'
+
+var MenuButton = React.createClass({displayName: "MenuButton",
+
+	handleClick:function(){
+		console.log('click')
+	},
+	
+	render: function(){
+		return(
+    		React.createElement("div", {onClick: this.handleClick, className: "menu-button"})
+    	)
+	}	
+})
+
+module.exports = MenuButton;
+
+},{}],3:[function(require,module,exports){
 'Use Strict'
 
 var Timer = React.createClass({displayName: "Timer",
 
 	render: function(){
 		return(
-        	React.createElement("div", {className: "quiz-timer"}, this.props.timer)
+        	React.createElement("div", {className: "quiz-timer"})
     	)
 	}	
 })
@@ -22,8 +41,11 @@ module.exports = Timer
 
 
 
-},{}],3:[function(require,module,exports){
+
+},{}],4:[function(require,module,exports){
 'Use Strict'
+
+
 
 var ButtonContainer = React.createClass({displayName: "ButtonContainer",
 
@@ -32,10 +54,9 @@ var ButtonContainer = React.createClass({displayName: "ButtonContainer",
   },
 
   render: function(){
-    var answerList = this.props.answerList.map(function(input){
-      return React.createElement(SingleButton, {key: 'button'+input, onClick: this.handleClick, singleAnswer: input})
+    var answerList = this.props.answerList.map(function(input, i){
+      return React.createElement(SingleButton, {key: 'button'+i, onClick: this.handleClick, singleAnswer: input})
     }.bind(this));
-   
     return React.createElement("div", null, " ", answerList, " ")
   }
 
@@ -56,40 +77,53 @@ var SingleButton = React.createClass({displayName: "SingleButton",
 });
 
 module.exports = ButtonContainer;
-},{}],4:[function(require,module,exports){
+
+},{}],5:[function(require,module,exports){
 'Use Strict';
 
-var Data              = require('../models/data_list.js');
 var ButtonContainer   = require('../components/quiz_buttons.jsx');
 var QuestionContainer = require('../components/quiz_question.jsx');
 var Score             = require('../components/quiz_score.jsx');
 var Timer             = require('../components/quiz_Timer.jsx');
+var MenuButton        = require('../components/menu_button.jsx');
+var StatContainer     = require('../components/quiz_stats.jsx');
+
+
+var numberGen         = require('../models/number_gen.js');
 
 
 var QuizContainer = React.createClass({displayName: "QuizContainer",
 
-  randomNumber: function(){
-    return Math.floor((Math.random() * Data.length) + 0);
-  },
-
   getInitialState: function(){
-    var rand = this.randomNumber();
+
+    numberGen.init('easy', function(question, answer, choices){
+      currentQuestion = question
+      currentAnswer   = answer
+      currentChoices  = choices
+    })
+
     return {
-      answerList: Data[rand].answer,
-      answerQuestion: Data[rand].question,
-      correctAnswer: Data[rand].correct,
+      answerList: currentChoices,
+      answerQuestion: currentQuestion,
+      correctAnswer: currentAnswer,
       score: 0,
-      timer: 30
+      timer: 5
     }
   }, 
 
-  newQuestion : function(){
-    var rand = this.randomNumber();
+  newQuestion : function(update){
+
+    numberGen.update(update, function(question, answer, choices){
+      currentQuestion = question
+      currentAnswer   = answer
+      currentChoices  = choices
+    })
+
     return {
-      answerList: Data[rand].answer,
-      answerQuestion: Data[rand].question,
-      correctAnswer: Data[rand].correct,
-      timer: 30
+      answerList: currentChoices,
+      answerQuestion: currentQuestion,
+      correctAnswer: currentAnswer,
+      timer: 5
     }
   },
 
@@ -104,7 +138,7 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
 
   success: function(){
     this.setState({score: this.state.score + 1})
-    this.setState(this.newQuestion());
+    this.setState(this.newQuestion(this.state.correctAnswer));
   },
 
   fail: function(){
@@ -112,18 +146,37 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
   },
 
   handleClick: function(child){
-    child.props.singleAnswer == this.state.answerList[this.state.correctAnswer-1] ? this.success() : this.fail()
+    child.props.singleAnswer == this.state.correctAnswer ? this.success() : this.fail()
   },
 
   render: function(){
     return(
       React.createElement("div", null, 
-        React.createElement(Timer, {timer: this.state.timer}), 
-        React.createElement(Score, {currentScore: this.state.score}), 
-        React.createElement(QuestionContainer, {answerQuestion: this.state.answerQuestion}), 
+
+        React.createElement("div", {className: "gloss"}), 
+
+        React.createElement("div", {className: "top-container"}, 
+
+          React.createElement(Score, {currentScore: this.state.score}), 
+          React.createElement(MenuButton, null), 
+          React.createElement(Timer, {timer: this.state.timer}), 
+
+          React.createElement("div", {className: "answer-screen"}, 
+            React.createElement("div", {className: "section-one"}, 
+              React.createElement(QuestionContainer, {answerQuestion: this.state.answerQuestion})
+            ), 
+
+            React.createElement("div", {className: "section-two"}, 
+              React.createElement(StatContainer, null)
+            )
+          )
+
+        ), 
+
         React.createElement("div", {className: "button-container"}, 
           React.createElement(ButtonContainer, {onClick: this.handleClick, answerList: this.state.answerList})
         )
+
       )
     )
   }
@@ -131,55 +184,50 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
 })
 
 module.exports = QuizContainer;
-},{"../components/quiz_Timer.jsx":2,"../components/quiz_buttons.jsx":3,"../components/quiz_question.jsx":5,"../components/quiz_score.jsx":6,"../models/data_list.js":7}],5:[function(require,module,exports){
-'Use Strict'
 
+},{"../components/menu_button.jsx":2,"../components/quiz_Timer.jsx":3,"../components/quiz_buttons.jsx":4,"../components/quiz_question.jsx":6,"../components/quiz_score.jsx":7,"../components/quiz_stats.jsx":8,"../models/number_gen.js":9}],6:[function(require,module,exports){
+'Use Strict'
 
 var QuestionContainer = React.createClass({displayName: "QuestionContainer",
 
 	render: function(){
 		return(
-    		React.createElement("div", null, this.props.answerQuestion)
+    		React.createElement("div", {className: "quiz-question"}, this.props.answerQuestion)
     	)
 	}	
 })
 
 module.exports = QuestionContainer;
-},{}],6:[function(require,module,exports){
+
+},{}],7:[function(require,module,exports){
 'Use Strict'
 
 var Score = React.createClass({displayName: "Score",
 
 	render: function(){
 		return(
-    		React.createElement("div", null, this.props.currentScore)
+    		React.createElement("div", {className: "quiz-score"}, this.props.currentScore)
     	)
 	}	
 })
 
 module.exports = Score;
-},{}],7:[function(require,module,exports){
-var exportAll = require('../models/number_gen.js');
 
-exportAll.init('medium', function(question, answer, choices){
-  currentQuestion = question
-  currentAnswer = answer
-  currentChoices = choices
+},{}],8:[function(require,module,exports){
+'Use Strict'
+
+var StatContainer = React.createClass({displayName: "StatContainer",
+
+	render: function(){
+		return(
+    		React.createElement("div", {className: "quiz-stats"}, "test")
+    	)
+	}	
 })
 
+module.exports = StatContainer;
 
-module.exports = [
-
-    {
-        "question" : currentQuestion,
-
-        "answer" : currentChoices,
-
-        "correct" : answer
-    }
-
-]
-},{"../models/number_gen.js":8}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'Use Strict'
 
 var currentQuestion, currentAnswer, currentChoices
@@ -196,8 +244,14 @@ exportAll.init = function(difficulty, callback){
 	callback(question, answer, choices)
 }
 
-exportAll.update = function(start){
+exportAll.update = function(start, callback){
 	numGen.updateNumber(start)
+
+	question = currentQuestion
+	answer = currentAnswer
+	choices = currentChoices
+
+	callback(question, answer, choices)
 }
 
 var numGen = {
@@ -272,30 +326,18 @@ var numGen = {
 	splitAnswer: function(start, partner, answer, difficulty){
 
 		var answerContain = [], 
-			answerLength = answer.length,
-			maxLengthLimit, minLengthlimit
+			answerLength = answer.length
+		
 
-		if (difficulty == 'easy'){
-			maxLengthLimit = 3
-			minLengthlimit = 1
-		} else if (difficulty == 'medium'){
-			maxLengthLimit = 33
-			minLengthlimit = 11
-		} else if (difficulty == 'hard'){
-			maxLengthLimit = 333
-			minLengthlimit = 111
-		} 
-
-
-		var scramble1 = answer - (answer.toString().length * Math.floor(Math.random() * maxLengthLimit - minLengthlimit))
-		var scramble2 = answer + (answer.toString().length + Math.floor(Math.random() * maxLengthLimit - minLengthlimit))
-		var scramble3 = answer - (answer.toString().length - Math.floor(Math.random() * maxLengthLimit+10 - minLengthlimit+10))
+		var scramble1 = answer + 1
+		var scramble2 = answer + 2
+		var scramble3 = answer + 3
 		
 		answerContain.push(scramble1, scramble2, scramble3, answer)
 
-		function shuffle(a,b,c,d){//array,placeholder,placeholder,placeholder
-			c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
-		}shuffle(answerContain);
+		// function shuffle(a,b,c,d){
+		// 	c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
+		// }shuffle(answerContain);
 
 		currentQuestion = start + '+' + partner;
 		currentAnswer = start + partner;
@@ -307,5 +349,6 @@ var numGen = {
 
 
 module.exports = exportAll;
+
 
 },{}]},{},[1]);

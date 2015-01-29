@@ -1,0 +1,29 @@
+.top-container{
+	    // -webkit-animation: sectionMove 0.3s 2s 1 linear;
+		-webkit-animation-fill-mode: forwards;
+}
+
+.answer-screen{
+	width:200%;
+	overflow: hidden;
+
+}
+
+.section-{
+
+	&one{
+
+	}
+
+
+	&two{
+
+
+	}
+}
+
+
+	@-webkit-keyframes sectionMove {
+	  0% { -webkit-transform: translateX(0)}
+	  100% { -webkit-transform: translateX(-100%)}
+	}

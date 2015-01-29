@@ -4,7 +4,7 @@ var Score = React.createClass({
 
 	render: function(){
 		return(
-    		<div>{this.props.currentScore}</div>
+    		<div className='quiz-score'>{this.props.currentScore}</div>
     	)
 	}	
 })

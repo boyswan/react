@@ -1,5 +1,13 @@
-// .quiz-timer{
-// 	width: 80%;
-// 	height: 50px;
-// 	background: red;
-// }
+.quiz-timer{
+	width: 85%;
+	height: 40px;
+	background: #4AC675;
+    -webkit-animation: myfirst 5s infinite linear; /* Chrome, Safari, Opera */
+}
+
+
+@-webkit-keyframes myfirst {
+  0% { width: 85%;}
+  30%{ background-color: #4AC675;}	 
+  100% { width: 0%;}
+}

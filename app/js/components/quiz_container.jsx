@@ -1,36 +1,48 @@
 'Use Strict';
 
-var Data              = require('../models/data_list.js');
 var ButtonContainer   = require('../components/quiz_buttons.jsx');
 var QuestionContainer = require('../components/quiz_question.jsx');
 var Score             = require('../components/quiz_score.jsx');
 var Timer             = require('../components/quiz_Timer.jsx');
+var MenuButton        = require('../components/menu_button.jsx');
+var StatContainer     = require('../components/quiz_stats.jsx');
+
+
+var numberGen         = require('../models/number_gen.js');
 
 
 var QuizContainer = React.createClass({
 
-  randomNumber: function(){
-    return Math.floor((Math.random() * Data.length) + 0);
-  },
-
   getInitialState: function(){
-    var rand = this.randomNumber();
+
+    numberGen.init('easy', function(question, answer, choices){
+      currentQuestion = question
+      currentAnswer   = answer
+      currentChoices  = choices
+    })
+
     return {
-      answerList: Data[rand].answer,
-      answerQuestion: Data[rand].question,
-      correctAnswer: Data[rand].correct,
+      answerList: currentChoices,
+      answerQuestion: currentQuestion,
+      correctAnswer: currentAnswer,
       score: 0,
-      timer: 30
+      timer: 5
     }
   }, 
 
-  newQuestion : function(){
-    var rand = this.randomNumber();
+  newQuestion : function(update){
+
+    numberGen.update(update, function(question, answer, choices){
+      currentQuestion = question
+      currentAnswer   = answer
+      currentChoices  = choices
+    })
+
     return {
-      answerList: Data[rand].answer,
-      answerQuestion: Data[rand].question,
-      correctAnswer: Data[rand].correct,
-      timer: 30
+      answerList: currentChoices,
+      answerQuestion: currentQuestion,
+      correctAnswer: currentAnswer,
+      timer: 5
     }
   },
 
@@ -45,7 +57,7 @@ var QuizContainer = React.createClass({
 
   success: function(){
     this.setState({score: this.state.score + 1})
-    this.setState(this.newQuestion());
+    this.setState(this.newQuestion(this.state.correctAnswer));
   },
 
   fail: function(){
@@ -53,18 +65,37 @@ var QuizContainer = React.createClass({
   },
 
   handleClick: function(child){
-    child.props.singleAnswer == this.state.answerList[this.state.correctAnswer-1] ? this.success() : this.fail()
+    child.props.singleAnswer == this.state.correctAnswer ? this.success() : this.fail()
   },
 
   render: function(){
     return(
       <div>
-        <Timer timer={this.state.timer} />
-        <Score currentScore={this.state.score} />
-        <QuestionContainer answerQuestion={this.state.answerQuestion} />
+
+        <div className='gloss'></div>
+
+        <div className='top-container'>
+
+          <Score currentScore={this.state.score} />
+          <MenuButton />
+          <Timer timer={this.state.timer} />
+
+          <div className='answer-screen'>
+            <div className='section-one'>
+              <QuestionContainer answerQuestion={this.state.answerQuestion} />
+            </div>
+
+            <div className='section-two'>
+              <StatContainer />
+            </div>
+          </div>
+
+        </div>
+
         <div className='button-container'>
           <ButtonContainer onClick={this.handleClick} answerList={this.state.answerList} />
         </div>
+
       </div>
     )
   }

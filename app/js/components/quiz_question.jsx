@@ -1,11 +1,10 @@
 'Use Strict'
 
-
 var QuestionContainer = React.createClass({
 
 	render: function(){
 		return(
-    		<div>{this.props.answerQuestion}</div>
+    		<div className='quiz-question'>{this.props.answerQuestion}</div>
     	)
 	}	
 })

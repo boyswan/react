@@ -1,6 +1,41 @@
+@font-face{ 
+	font-family: 'reg'; 
+	src: url('../fonts/agnextregular-webfont.eot');
+	src: url('../fonts/agnextregular-webfont.eot?#iefix') format('embedded-opentype'), 
+	url('../fonts/agnextregular-webfont.woff') format('woff'), 
+	url('../fonts/agnextregular-webfont.ttf') format('truetype'), 
+	url('../fonts/agnextregular-webfont.svg#akzidenz-grotesk_next_regulRg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'light';
+    src: url('../fonts/agnextlight-webfont.eot');
+    src: url('../fonts/agnextlight-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/agnextlight-webfont.woff') format('woff'),
+	url('../fonts/agnextlight-webfont.ttf') format('truetype'),
+	url('../fonts/agnextlight-webfont.svg#akzidenz-grotesk_nextlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'mid';
+    src: url('../fonts/agnextmedium-webfont.eot');
+    src: url('../fonts/agnextmedium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/agnextmedium-webfont.woff2') format('woff2'),
+         url('../fonts/agnextmedium-webfont.woff') format('woff'),
+         url('../fonts/agnextmedium-webfont.ttf') format('truetype'),
+         url('../fonts/agnextmedium-webfont.svg#akzidenz-grotesk_nextmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
 
 // Colours
-$one: #94D5FF;
+$one: #00A3D4;
 $two: #72B2E3;
 $three: #5190C7;
 $four: #2F6DAB;

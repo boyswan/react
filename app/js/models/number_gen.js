@@ -14,8 +14,14 @@ exportAll.init = function(difficulty, callback){
 	callback(question, answer, choices)
 }
 
-exportAll.update = function(start){
+exportAll.update = function(start, callback){
 	numGen.updateNumber(start)
+
+	question = currentQuestion
+	answer = currentAnswer
+	choices = currentChoices
+
+	callback(question, answer, choices)
 }
 
 var numGen = {
@@ -90,30 +96,18 @@ var numGen = {
 	splitAnswer: function(start, partner, answer, difficulty){
 
 		var answerContain = [], 
-			answerLength = answer.length,
-			maxLengthLimit, minLengthlimit
+			answerLength = answer.length
+		
 
-		if (difficulty == 'easy'){
-			maxLengthLimit = 3
-			minLengthlimit = 1
-		} else if (difficulty == 'medium'){
-			maxLengthLimit = 33
-			minLengthlimit = 11
-		} else if (difficulty == 'hard'){
-			maxLengthLimit = 333
-			minLengthlimit = 111
-		} 
-
-
-		var scramble1 = answer - (answer.toString().length * Math.floor(Math.random() * maxLengthLimit - minLengthlimit))
-		var scramble2 = answer + (answer.toString().length + Math.floor(Math.random() * maxLengthLimit - minLengthlimit))
-		var scramble3 = answer - (answer.toString().length - Math.floor(Math.random() * maxLengthLimit+10 - minLengthlimit+10))
+		var scramble1 = answer + 1
+		var scramble2 = answer + 2
+		var scramble3 = answer + 3
 		
 		answerContain.push(scramble1, scramble2, scramble3, answer)
 
-		function shuffle(a,b,c,d){//array,placeholder,placeholder,placeholder
-			c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
-		}shuffle(answerContain);
+		// function shuffle(a,b,c,d){
+		// 	c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
+		// }shuffle(answerContain);
 
 		currentQuestion = start + '+' + partner;
 		currentAnswer = start + partner;
