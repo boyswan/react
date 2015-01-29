@@ -1,27 +1,16 @@
 'Use Strict'
 
-var currentQuestion, currentAnswer, currentChoices
 
 var exportAll = exportAll || {}
 
 exportAll.init = function(difficulty, callback){
 	numGen.init(difficulty)
-		
-	question = currentQuestion
-	answer = currentAnswer
-	choices = currentChoices
-
-	callback(question, answer, choices)
+	callback(currentQuestion, currentAnswer, currentChoices)
 }
 
 exportAll.update = function(start, callback){
 	numGen.updateNumber(start)
-
-	question = currentQuestion
-	answer = currentAnswer
-	choices = currentChoices
-
-	callback(question, answer, choices)
+	callback(currentQuestion, currentAnswer, currentChoices)
 }
 
 var numGen = {
@@ -105,9 +94,10 @@ var numGen = {
 		
 		answerContain.push(scramble1, scramble2, scramble3, answer)
 
-		// function shuffle(a,b,c,d){
-		// 	c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
-		// }shuffle(answerContain);
+		function shuffle(a,b,c,d){
+			c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
+		}shuffle(answerContain);
+
 
 		currentQuestion = start + '+' + partner;
 		currentAnswer = start + partner;

@@ -4,7 +4,10 @@ var Timer = React.createClass({
 
 	render: function(){
 		return(
-        	<div className='quiz-timer'></div>
+			<div>
+        		<div className='quiz-timer-base'></div>
+        		<div className='quiz-timer'></div>
+        	</div>
     	)
 	}	
 })

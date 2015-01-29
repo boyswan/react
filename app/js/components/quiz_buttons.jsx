@@ -1,7 +1,6 @@
 'Use Strict'
 
 
-
 var ButtonContainer = React.createClass({
 
   handleClick: function(child){

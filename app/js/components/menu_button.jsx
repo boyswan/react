@@ -3,7 +3,7 @@
 var MenuButton = React.createClass({
 
 	handleClick:function(){
-		console.log('click')
+    	this.props.onClick(this);
 	},
 	
 	render: function(){

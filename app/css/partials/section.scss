@@ -1,29 +1,30 @@
-.top-container{
-	    // -webkit-animation: sectionMove 0.3s 2s 1 linear;
-		-webkit-animation-fill-mode: forwards;
-}
-
 .answer-screen{
 	width:200%;
-	overflow: hidden;
-
 }
 
-.section-{
+.top-container{
 
-	&one{
+	-webkit-transform-style: preserve-3d;
 
-	}
+		&.open{
+		    -webkit-animation: menuOpen 0.5s 0 1 cubic-bezier(.52,-0.38,.57,1.05) ;
+			-webkit-animation-fill-mode: forwards;
+		}
 
-
-	&two{
-
-
-	}
+		&.close{
+			-webkit-animation: menuClose 0.5s 0 1 cubic-bezier(.52,-0.38,.57,1.05) ;
+			-webkit-animation-fill-mode: forwards;
+		}
 }
 
 
-	@-webkit-keyframes sectionMove {
-	  0% { -webkit-transform: translateX(0)}
-	  100% { -webkit-transform: translateX(-100%)}
-	}
+@-webkit-keyframes menuOpen {
+	0%   { -webkit-transform: translateX(0)}
+	100% { -webkit-transform: translateX(-85%)}
+}
+
+@-webkit-keyframes menuClose {
+	0%   { -webkit-transform: translateX(-85%)}
+	100% { -webkit-transform: translateX(0)}
+}
+

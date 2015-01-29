@@ -1,27 +1,24 @@
 
-.quiz-{
+.quiz-button{
 
-	&button{
-		display: block;
-		height: 25%;
-		outline: 0;
-		padding-top: 5%;
-		padding-bottom: 5%;
-		width: 100%;
-		font-size: 2em;
-		border: none;
-		background: #4AC675;
-		color: white;
+	display: block;
+	height: 25%;
+	outline: 0;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	width: 100%;
+	font-size: 2em;
+	border: none;
+	background: #4AC675;
+	color: white;
+	@include transition (0.2s);
 
-		@include transition (0.2s);
-
-			&:active {
-				border-top-color: #ffffff;
-				background: #ffffff;
-				color: #4AC675;
-				@include transition (0.2s)
-			}
-		}	
+		&:active {
+			border-top-color: #ffffff;
+			background: #ffffff;
+			color: #4AC675;
+			@include transition (0.2s)
+		}
 
 
 }
@@ -33,7 +30,7 @@
 	width: 15%;
 	// min-width: 50px;
 	// max-width: 50px;
-	height: 40px;
+	height: 50px;
 	background: $one;
 	background-image: url(../images/menu.svg);
 	background-size: 20px;

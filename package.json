@@ -14,6 +14,7 @@
     "grunt": "^0.4.5",
     "reactify": "*",
     "react": "^0.12.2",
+    "react-tween-state": "*",
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "*",
