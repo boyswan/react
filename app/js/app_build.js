@@ -114,7 +114,8 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
   }, 
 
   newQuestion : function(update){
-    Velocity(this.getDOMNode().querySelectorAll('.quiz-question, .quiz-score'),'transition.bounceIn', 500);
+    Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),({ width: '16%' }), 4250);
+    Velocity(this.getDOMNode().querySelectorAll('.quiz-question, .quiz-score'),'transition.bounceIn', 600);
     NumberGen.update(update, function(){})
     return {
       answerList: currentChoices,
@@ -130,10 +131,15 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
   },
 
   componentDidMount: function(){
+    Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),({ width: '16%' }), 4250);
+
     setInterval(this.timeDown, 1000);
   },
 
   success: function(){
+    console.log('success')
+    Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),'stop');
+    Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),({ width: '100%' }), 50);
     this.setState({score: this.state.score + 1})
     this.setState(this.newQuestion(this.state.correctAnswer));
   },
@@ -146,36 +152,33 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
   },
 
   fail: function(){
-
-    // Velocity(this.getDOMNode().querySelectorAll('.answer-screen, .button-container'),'transition.fadeOut', { 
-    //   duration: 200, complete: function() { 
-    //     console.log("Done animating the scale property.")}
-    // });
-    // this.resetInfo();
+    // Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),'finish');
+    console.log('fail')
     this.setState(this.getInitialState());
 
   },
 
   submitAnswer: function(child){
+
     child.props.singleAnswer == this.state.correctAnswer ? this.success() : this.fail()
   },
 
   menuToggle: function(){
-    var menu = this.state.menu
 
-    if (menu == 'off'){
-      Velocity(this.getDOMNode().querySelectorAll('.top-container'),({ translateX: ['-85%', [90,10]] }), 400);
+    if (this.state.menu == 'off'){
+      Velocity(this.getDOMNode().querySelectorAll('.top-container'),({ translateX: ['-85%', [90,10]] }), 600);
       this.setState({menu: 'on'})
     }  
 
-    if (menu == 'on'){
-      Velocity(this.getDOMNode().querySelectorAll('.top-container'),({ translateX: ['0%', [90,10]] }), 400);
+    if (this.state.menu == 'on'){
+      Velocity(this.getDOMNode().querySelectorAll('.top-container'),({ translateX: ['0%', [90,10]] }), 600);
       this.setState({menu: 'off'})
     }
 
   },
 
   render: function(){
+
     return(
 
       React.createElement("div", null, 
@@ -191,7 +194,6 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
           React.createElement(Timer, {timer: this.state.timer}), 
 
           React.createElement("div", {className: "answer-screen"}, 
-
             React.createElement("div", {className: "section-one"}, 
               React.createElement(QuestionContainer, {answerQuestion: this.state.answerQuestion})
             ), 
@@ -199,7 +201,6 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
             React.createElement("div", {className: "section-two"}, 
               React.createElement(StatContainer, null)
             )
-
           )
 
         ), 

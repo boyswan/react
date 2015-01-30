@@ -28,6 +28,7 @@ html {
   margin: 0; }
 
 body {
+  position: fixed;
   background-color: #00a3d4;
   height: 100%;
   width: 100%;
@@ -75,9 +76,7 @@ p {
   z-index: 99999; }
 
 .quiz-button {
-  display: block;
-  height: 25%;
-  outline: 0;
+  outline: none;
   padding-top: 5%;
   padding-bottom: 5%;
   width: 100%;
@@ -85,12 +84,12 @@ p {
   border: none;
   background: #4AC675;
   color: white;
-  transition: all 0.2s ease-in-out; }
+  transition: all 0.1s ease-in-out; }
   .quiz-button:active {
     border-top-color: #ffffff;
     background: #ffffff;
     color: #4AC675;
-    transition: all 0.2s ease-in-out; }
+    transition: all 0.1s ease-in-out; }
 
 .menu-button {
   float: right;
@@ -132,3 +131,7 @@ p {
     width: 0%; } }
 .answer-screen {
   width: 200%; }
+
+.top-container {
+  display: block;
+  position: relative; }
