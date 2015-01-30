@@ -1,7 +1,8 @@
 'Use Strict';
 
-var cx = React.addons.classSet;
-
+var NumberGen         = require('../models/number_gen.js');
+var Velocity          = require('velocity-animate/velocity');
+                        require('velocity-animate/velocity.ui');
 
 var ButtonContainer   = require('../components/quiz_buttons.jsx');
 var QuestionContainer = require('../components/quiz_question.jsx');
@@ -11,31 +12,25 @@ var MenuButton        = require('../components/menu_button.jsx');
 var StatContainer     = require('../components/quiz_stats.jsx');
 
 
-var numberGen         = require('../models/number_gen.js');
 
 
 var QuizContainer = React.createClass({
 
-  getDefaultProps: function(){
-    return{
-      menuOpen: null
-    }
-  },
-
   getInitialState: function(){
-    numberGen.init('easy', function(){})
+    NumberGen.init('easy', function(){})
     return {
       answerList: currentChoices,
       answerQuestion: currentQuestion,
       correctAnswer: currentAnswer,
       score: 0,
-      menu: false,
-      timer: 5
+      timer: 5,
+      menu: 'off',
     }
   }, 
 
   newQuestion : function(update){
-    numberGen.update(update, function(){})
+    Velocity(this.getDOMNode().querySelectorAll('.quiz-question, .quiz-score'),'transition.bounceIn', 500);
+    NumberGen.update(update, function(){})
     return {
       answerList: currentChoices,
       answerQuestion: currentQuestion,
@@ -58,8 +53,22 @@ var QuizContainer = React.createClass({
     this.setState(this.newQuestion(this.state.correctAnswer));
   },
 
+  resetInfo:function(){
+    Velocity(this.getDOMNode().querySelectorAll('.answer-screen, .button-container'),'transition.fadeIn', { 
+      duration: 200, complete: function() { 
+        console.log("Done animating the scale property.")}
+    });
+  },
+
   fail: function(){
+
+    // Velocity(this.getDOMNode().querySelectorAll('.answer-screen, .button-container'),'transition.fadeOut', { 
+    //   duration: 200, complete: function() { 
+    //     console.log("Done animating the scale property.")}
+    // });
+    // this.resetInfo();
     this.setState(this.getInitialState());
+
   },
 
   submitAnswer: function(child){
@@ -67,27 +76,33 @@ var QuizContainer = React.createClass({
   },
 
   menuToggle: function(){
-    this.props.menuOpen == 'on' ? this.props.menuOpen = 'off' : this.props.menuOpen = 'on';
+    var menu = this.state.menu
+
+    if (menu == 'off'){
+      Velocity(this.getDOMNode().querySelectorAll('.top-container'),({ translateX: ['-85%', [90,10]] }), 400);
+      this.setState({menu: 'on'})
+    }  
+
+    if (menu == 'on'){
+      Velocity(this.getDOMNode().querySelectorAll('.top-container'),({ translateX: ['0%', [90,10]] }), 400);
+      this.setState({menu: 'off'})
+    }
+
   },
 
   render: function(){
-
-    var className = cx({
-      "top-container": true,
-      "top-container open": this.props.menuOpen == 'on',
-      "top-container close": this.props.menuOpen == 'off'
-    });
-
     return(
+
       <div>
 
         <div className='gloss'></div>
 
-        <div className={className}>
+        <div className='top-container'>
 
           <MenuButton onClick={this.menuToggle} />
 
           <Score currentScore={this.state.score} />
+
           <Timer timer={this.state.timer} />
 
           <div className='answer-screen'>

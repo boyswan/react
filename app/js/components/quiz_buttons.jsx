@@ -24,7 +24,9 @@ var SingleButton = React.createClass({
 
   render: function(){
     return (
-        <button className='quiz-button' onClick={this.handleClick}>{this.props.singleAnswer}</button>
+      <div>
+        <button className='quiz-button' onClick={this.handleClick}>{this.props.singleAnswer}</button>     
+      </div>
     )
   }
 
