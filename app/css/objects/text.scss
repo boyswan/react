@@ -2,7 +2,7 @@
 .quiz-{
 
 	&score{
-		position: fixed;
+		position: absolute;
 		color: white;
 		z-index: 999;
 		font-size: 1.5em;
@@ -10,24 +10,19 @@
 	}
 
 	&question{
+		position: relative;
 		color: white;
 		width: 50%;
 		float: left;
-		// background: red;
 		font-size: 3em;
 		vertical-align: middle;
-		padding: 70px 0 60px 0;
+		padding: 70px 0 61px 0;
 		text-align: center;
 	}
 
 	&stats{
-		color: white;
-		width: 50%;
-		float: left;
-		font-size: 3em;
-		vertical-align: middle;
-		padding: 70px 15% 60px 0;
-		text-align: center;		
+		@extend .quiz-question;
+		padding: 70px 15% 61px 0;
 	}
 
 }

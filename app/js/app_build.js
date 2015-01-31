@@ -48,7 +48,6 @@ module.exports = Timer
 },{}],4:[function(require,module,exports){
 'Use Strict'
 
-
 var ButtonContainer = React.createClass({displayName: "ButtonContainer",
 
   handleClick: function(child){
@@ -56,10 +55,14 @@ var ButtonContainer = React.createClass({displayName: "ButtonContainer",
   },
 
   render: function(){
+
     var answerList = this.props.answerList.map(function(input, i){
-      return React.createElement(SingleButton, {className: 'button'+(i+1), key: 'button'+i, onClick: this.handleClick, singleAnswer: input})
+      return React.createElement(SingleButton, {height: this.props.height, className: 'button'+(i+1), key: 'button'+i, onClick: this.handleClick, singleAnswer: input})
     }.bind(this));
-    return React.createElement("div", null, " ", answerList, " ")
+
+    return (
+      React.createElement("div", null, " ", answerList, " ")
+    )
   }
 
 })
@@ -71,9 +74,13 @@ var SingleButton = React.createClass({displayName: "SingleButton",
   }, 
 
   render: function(){
+    var style = {
+      height: (window.innerHeight - this.props.height)/4
+    }
+
     return (
       React.createElement("div", null, 
-        React.createElement("button", {className: this.props.className, onClick: this.handleClick}, this.props.singleAnswer)
+        React.createElement("button", {style: style, className: this.props.className, onClick: this.handleClick}, this.props.singleAnswer)
       )
     )
   }
@@ -98,13 +105,11 @@ var MenuButton        = require('../components/menu_button.jsx');
 var StatContainer     = require('../components/quiz_stats.jsx');
 
 
-
-
 var QuizContainer = React.createClass({displayName: "QuizContainer",
 
   getDefaultProps: function(){
     return{
-      timer: 7
+      timer: 10
     }
   },
 
@@ -116,13 +121,13 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
       correctAnswer: currentAnswer,
       score: 0,
       timer: this.props.timer,
-      menu: 'off',
+      menu: 'off'
     }
   }, 
 
   newQuestion : function(update){
-    Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),({ width: '15%' }), this.props.timer*1000);
-    Velocity(this.getDOMNode().querySelectorAll('.quiz-question, .quiz-score'),'transition.bounceIn', 600);
+    Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '15%' }), this.props.timer*1000);
+    Velocity(dom.querySelectorAll('.quiz-question, .quiz-score'),'transition.bounceIn', 600);
     NumberGen.update(update, function(){})
     return {
       answerList: currentChoices,
@@ -138,19 +143,21 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
   },
 
   componentDidMount: function(){
-    Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),({ width: '15%'}), this.props.timer*1000);
+    dom = this.getDOMNode()
+    Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '15%'}), this.props.timer*1000);
+    this.setState({height: this.refs.topContainerHeight.getDOMNode().offsetHeight})
+
     setInterval(this.timeDown, 1000);
   },
 
-  resetInfo:function(){
-    Velocity(this.getDOMNode().querySelectorAll('.answer-screen, .button-container'),'transition.fadeIn', { 
-      duration: 200, complete: function() { 
-        console.log("Done animating the scale property.")}
-    });
-  },
+  // resetInfo:function(){
+  //   Velocity(dom.querySelectorAll('.answer-screen, .button-container'),'transition.fadeIn', { 
+  //     duration: 200, complete: function() { 
+  //       console.log("Done animating the scale property.")}
+  //   });
+  // },
 
   success: function(){
-    var dom = this.getDOMNode()
     Velocity(dom.querySelectorAll('.quiz-timer'),'stop');
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '100%' }), 50);
     this.setState({score: this.state.score + 1})
@@ -158,11 +165,11 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
   },
 
   fail: function(){
-
-    Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),'stop');
-    Velocity(this.getDOMNode().querySelectorAll('.quiz-timer'),({ width: '0%'}), 600);
-    Velocity(this.getDOMNode().querySelectorAll('.button-container'),'transition.fadeOut', 600);
+    Velocity(dom.querySelectorAll('.quiz-timer'),'stop');
+    Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '0%'}), 600);
+    Velocity(dom.querySelectorAll('.button-container'),'transition.fadeOut', 600);
     this.setState(this.getInitialState());
+
   },
 
   submitAnswer: function(child){
@@ -172,12 +179,12 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
   menuToggle: function(){
 
     if (this.state.menu == 'off'){
-      Velocity(this.getDOMNode().querySelectorAll('.top-container'),({ translateX: ['-85%', [90,10]] }), 600);
+      Velocity(dom.querySelectorAll('.top-container'),({ translateX: ['-85%', [90,10]] }), 600);
       this.setState({menu: 'on'})
     }  
 
     if (this.state.menu == 'on'){
-      Velocity(this.getDOMNode().querySelectorAll('.top-container'),({ translateX: ['0%', [90,10]] }), 600);
+      Velocity(dom.querySelectorAll('.top-container'),({ translateX: ['0%', [90,10]] }), 600);
       this.setState({menu: 'off'})
     }
 
@@ -185,6 +192,9 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
 
   render: function(){
 
+    var setStyle = {
+      opacity: 0.1
+    }
     var buttonStyle = cx({
       "button-container": true,
       "button-container freeze": this.state.timer <= 0
@@ -196,15 +206,14 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
 
         React.createElement("div", {className: "gloss"}), 
 
-        React.createElement("div", {className: "top-container"}, 
+        React.createElement("div", {ref: "topContainerHeight", className: "top-container"}, 
 
           React.createElement(MenuButton, {onClick: this.menuToggle}), 
-
           React.createElement(Score, {currentScore: this.state.score}), 
-
           React.createElement(Timer, {timer: this.state.timer}), 
 
           React.createElement("div", {className: "answer-screen"}, 
+
             React.createElement("div", {className: "section-one"}, 
               React.createElement(QuestionContainer, {answerQuestion: this.state.answerQuestion})
             ), 
@@ -212,12 +221,13 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
             React.createElement("div", {className: "section-two"}, 
               React.createElement(StatContainer, null)
             )
+
           )
 
         ), 
 
         React.createElement("div", {className: buttonStyle}, 
-          React.createElement(ButtonContainer, {onClick: this.submitAnswer, answerList: this.state.answerList})
+          React.createElement(ButtonContainer, {height: this.state.height, style: setStyle, onClick: this.submitAnswer, answerList: this.state.answerList})
         )
 
       )
