@@ -114,7 +114,7 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
 
   getDefaultProps: function(){
     return{
-      timer: 700
+      timer: 7
     }
   },
 

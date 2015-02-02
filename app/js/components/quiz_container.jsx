@@ -20,7 +20,7 @@ var QuizContainer = React.createClass({
 
   getDefaultProps: function(){
     return{
-      timer: 700
+      timer: 7
     }
   },
 
