@@ -1,10 +1,11 @@
 
 .button1{
 	border: none;
+	border-top: 2px solid lighten($green1, 5%);
 	outline: none;
 	width: 100%;
 	font-size: 2em;
-	background: #4AC675;
+	background: $green1;
 	text-align: center;
 	color: white;
 	@include transition (0.1s);
@@ -19,17 +20,34 @@
 
 .button2{
 	@extend .button1;
-	background: #3DB968;
+	border-top: none;
+	background: $green2;
+
+		&:active {
+			color: $green2;
+		}
 }
 
 .button3{
 	@extend .button1;
-	background: #31AD5C;
+	border-top: none;
+
+	background: $green3;
+
+		&:active {
+			color: $green3;
+		}
 }
 
 .button4{
 	@extend .button1;
-	background: #24a04f;
+	border-top: none;
+
+	background: $green4;
+
+		&:active {
+			color: $green4;
+		}
 }
 
 
@@ -37,10 +55,28 @@
 	float: right;
 	width: 15%;
 	height: 50px;
-	background: $one;
 	background-image: url(../images/menu.svg);
 	background-size: 20px;
 	background-repeat: no-repeat;
-	background-position: center;
-	
+	background-position: center;	
+}
+
+.retry-button{
+	border-radius: 5px;
+	border: none;
+	border-top: 2px solid lighten($green1, 5%);
+	outline: none;
+	position: absolute;
+	display: none;
+	width: 50%;
+    left: 25%;
+	font-size: 2em;
+	background: $green1;
+	text-align: center;
+	vertical-align: middle;
+	color: white;	
+
+	&.active{
+		display: block;
+	}
 }

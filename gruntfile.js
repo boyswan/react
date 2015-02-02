@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       },
       js: {
           files: ['app/js/**/*'],
-          tasks: ['browserify', 'uglify'],
+          tasks: ['browserify'],
           options: {
               spawn: false
           }

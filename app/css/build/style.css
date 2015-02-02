@@ -72,10 +72,11 @@ p {
 
 .button1, .button2, .button3, .button4 {
   border: none;
+  border-top: 2px solid #5dcc84;
   outline: none;
   width: 100%;
   font-size: 2em;
-  background: #4AC675;
+  background: #4ac675;
   text-align: center;
   color: white;
   transition: all 0.1s ease-in-out; }
@@ -86,23 +87,48 @@ p {
     transition: all 0.1s ease-in-out; }
 
 .button2 {
-  background: #3DB968; }
+  border-top: none;
+  background: #3db968; }
+  .button2:active {
+    color: #3db968; }
 
 .button3 {
-  background: #31AD5C; }
+  border-top: none;
+  background: #31ad5c; }
+  .button3:active {
+    color: #31ad5c; }
 
 .button4 {
+  border-top: none;
   background: #24a04f; }
+  .button4:active {
+    color: #24a04f; }
 
 .menu-button {
   float: right;
   width: 15%;
   height: 50px;
-  background: #00a3d4;
   background-image: url(../images/menu.svg);
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: center; }
+
+.retry-button {
+  border-radius: 5px;
+  border: none;
+  border-top: 2px solid #5dcc84;
+  outline: none;
+  position: absolute;
+  display: none;
+  width: 50%;
+  left: 25%;
+  font-size: 2em;
+  background: #4ac675;
+  text-align: center;
+  vertical-align: middle;
+  color: white; }
+  .retry-button.active {
+    display: block; }
 
 .quiz-timer {
   position: absolute;

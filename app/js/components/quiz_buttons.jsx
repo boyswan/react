@@ -32,7 +32,9 @@ var SingleButton = React.createClass({
 
     return (
       <div>
-        <button style={style} className={this.props.className} onClick={this.handleClick}>{this.props.singleAnswer}</button>     
+        <button style={style} className={this.props.className} onClick={this.handleClick}>
+          <span className='button-text'>{this.props.singleAnswer}</span>
+        </button>     
       </div>
     )
   }
