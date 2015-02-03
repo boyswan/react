@@ -28,7 +28,6 @@ var QuizContainer = React.createClass({
       currentAverageScore = JSON.parse(localStorage.getItem("averageScore"))
       currentAverageSpeed = JSON.parse(localStorage.getItem("averageSpeed"))
     }
-
     return{
       highScore: currentHighscore,
       averageScore: currentAverageScore,
@@ -117,7 +116,6 @@ var QuizContainer = React.createClass({
   retry: function(){
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '100%' }), 50);
     this.setState(this.getInitialState());
-
     this.interval = setInterval(this.timeDown, 1000);
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '15%'}), this.props.timer*1000);
     Velocity(dom.querySelectorAll('.button-container'),'transition.fadeIn', 600);

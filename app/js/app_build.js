@@ -122,7 +122,6 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
       currentAverageScore = JSON.parse(localStorage.getItem("averageScore"))
       currentAverageSpeed = JSON.parse(localStorage.getItem("averageSpeed"))
     }
-
     return{
       highScore: currentHighscore,
       averageScore: currentAverageScore,
@@ -211,7 +210,6 @@ var QuizContainer = React.createClass({displayName: "QuizContainer",
   retry: function(){
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '100%' }), 50);
     this.setState(this.getInitialState());
-
     this.interval = setInterval(this.timeDown, 1000);
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '15%'}), this.props.timer*1000);
     Velocity(dom.querySelectorAll('.button-container'),'transition.fadeIn', 600);
@@ -487,9 +485,9 @@ module.exports = exportAll;
 },{}],11:[function(require,module,exports){
 'Use Strict';
 
-
 var scoreList = [];
 var speedList = [];
+
 
 var exportScore = exportScore || {}
 
@@ -515,7 +513,12 @@ var scoreGen = {
 
 	init: function(score){
 
+		if (localStorage.getItem("scoreList") !== null) {
+			scoreList = JSON.parse(localStorage.getItem("scoreList"));
+		}
+
 		scoreList.push(score);
+	    exportScore.setItemJSON('scoreList', scoreList);
 		scoreList = scoreList.filter(Number)
 
 		this.highScore(scoreList);
@@ -548,7 +551,11 @@ var scoreGen = {
 	},
 
 	averageSpeed: function(speed){
+		if (localStorage.getItem("speedList") !== null) {
+			speedList = JSON.parse(localStorage.getItem("speedList"));
+		}
 		speedList.push(speed);
+	    exportScore.setItemJSON('speedList', speedList);
 		speedList = speedList.filter(Number)
 
 		var sum = 0;	

@@ -1,8 +1,8 @@
 'Use Strict';
 
-
 var scoreList = [];
 var speedList = [];
+
 
 var exportScore = exportScore || {}
 
@@ -28,7 +28,12 @@ var scoreGen = {
 
 	init: function(score){
 
+		if (localStorage.getItem("scoreList") !== null) {
+			scoreList = JSON.parse(localStorage.getItem("scoreList"));
+		}
+
 		scoreList.push(score);
+	    exportScore.setItemJSON('scoreList', scoreList);
 		scoreList = scoreList.filter(Number)
 
 		this.highScore(scoreList);
@@ -61,7 +66,11 @@ var scoreGen = {
 	},
 
 	averageSpeed: function(speed){
+		if (localStorage.getItem("speedList") !== null) {
+			speedList = JSON.parse(localStorage.getItem("speedList"));
+		}
 		speedList.push(speed);
+	    exportScore.setItemJSON('speedList', speedList);
 		speedList = speedList.filter(Number)
 
 		var sum = 0;	
