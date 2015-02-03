@@ -87,17 +87,15 @@ var numGen = {
 		var answerContain = [], 
 			answerLength = answer.length
 		
-
 		var scramble1 = answer + 1
 		var scramble2 = answer + 2
 		var scramble3 = answer + 3
 		
 		answerContain.push(scramble1, scramble2, scramble3, answer)
 
-		function shuffle(a,b,c,d){
-			c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
-		}shuffle(answerContain);
-
+		// function shuffle(a,b,c,d){
+		// 	c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
+		// }shuffle(answerContain);
 
 		currentQuestion = start + '+' + partner;
 		currentAnswer = start + partner;

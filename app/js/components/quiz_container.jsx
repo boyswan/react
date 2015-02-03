@@ -19,19 +19,34 @@ var RetryButton       = require('../components/quiz_retry.jsx');
 var QuizContainer = React.createClass({
 
   getDefaultProps: function(){
+
+    if (localStorage.getItem("highScore") == null) {
+      ExportScore.scoreData(null, function(){})
+      ExportScore.speedData(null, function(){})
+    } else {
+      currentHighscore    = JSON.parse(localStorage.getItem("highScore"))
+      currentAverageScore = JSON.parse(localStorage.getItem("averageScore"))
+      currentAverageSpeed = JSON.parse(localStorage.getItem("averageSpeed"))
+    }
+
     return{
-      timer: 7
+      highScore: currentHighscore,
+      averageScore: currentAverageScore,
+      averageSpeed: currentAverageSpeed,
+      timer: 10
     }
   },
 
   getInitialState: function(){
+
     NumberGen.init('easy', function(){})
-    ExportScore.scoreData(null, function(){})
     return {
       answerList: currentChoices,
       answerQuestion: currentQuestion,
       correctAnswer: currentAnswer,
       highScore: currentHighscore,
+      averageScore: currentAverageScore,
+      averageSpeed: currentAverageSpeed,
       score: 0,
       timer: this.props.timer,
       menu: 'off',
@@ -42,14 +57,13 @@ var QuizContainer = React.createClass({
   newQuestion : function(update){
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '15%' }), this.props.timer*1000);
     Velocity(dom.querySelectorAll('.quiz-question, .quiz-score, .button-text'),'transition.bounceIn', 600);
-
-    NumberGen.update(update, function(){})
-    ExportScore.scoreData(null, function(){})
+    NumberGen.update(update, function(){
+      currentHighscore = currentHighscore
+    })
     return {
       answerList: currentChoices,
       answerQuestion: currentQuestion,
       correctAnswer: currentAnswer,
-      highScore: currentHighscore,
       timer: this.props.timer
     }
   },
@@ -71,8 +85,7 @@ var QuizContainer = React.createClass({
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '100%' }), 50);
     this.setState({score: this.state.score + 1})
     this.setState(this.newQuestion(this.state.correctAnswer));
-
-    ExportScore.speedData((this.props.timer-this.state.timer).toFixed(2));
+    ExportScore.speedData(parseFloat((this.props.timer-this.state.timer).toFixed(2)), function(){})
   },
 
   fail: function(){
@@ -80,22 +93,32 @@ var QuizContainer = React.createClass({
     Velocity(dom.querySelectorAll('.quiz-timer'),'stop');
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '0%'}), 600);
     Velocity(dom.querySelectorAll('.button-container'),'transition.fadeOut', 600);
-
-
-    // ExportScore.scoreData(this.state.score);
     this.setState({answerQuestion: 'Score: '+this.state.score});
-
 
     clearInterval(this.interval);
     Velocity(dom.querySelectorAll('.quiz-question'),'transition.fadeIn', 1000);
     Velocity(dom.querySelectorAll('.retry-button'),'transition.bounceIn', 600);
+    this.setState({answerQuestion: 'Score: '+this.state.score});
+
+
+    ExportScore.scoreData(this.state.score, function(){})
+    this.setState({
+      highScore: currentHighscore,
+      averageScore: currentAverageScore,
+      averageSpeed: currentAverageSpeed
+    });
+
+    ExportScore.setItemJSON('highScore', currentHighscore);
+    ExportScore.setItemJSON('averageScore', currentAverageScore);
+    ExportScore.setItemJSON('averageSpeed', currentAverageSpeed);
+
   },
 
   retry: function(){
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '100%' }), 50);
     this.setState(this.getInitialState());
-    this.interval = setInterval(this.timeDown, 1000);
 
+    this.interval = setInterval(this.timeDown, 1000);
     Velocity(dom.querySelectorAll('.quiz-timer'),({ width: '15%'}), this.props.timer*1000);
     Velocity(dom.querySelectorAll('.button-container'),'transition.fadeIn', 600);
     Velocity(dom.querySelectorAll('.retry-button'),'transition.fadeOut', 400);
@@ -151,7 +174,7 @@ var QuizContainer = React.createClass({
             </div>
 
             <div className='section-two'>
-              <StatContainer highScore={this.state.highScore}/>
+              <StatContainer avTime={this.state.averageSpeed} avScore={this.state.averageScore} highScore={this.state.highScore}/>
             </div>
 
           </div>
